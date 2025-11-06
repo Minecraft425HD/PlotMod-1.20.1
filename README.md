@@ -1,5 +1,4 @@
 # PlotMod-1.20.1
-# PlotMod-1.20.1
 
 *A full featured Plot system for Minecraft 1.20.1/Forge 47.5.0*
 
