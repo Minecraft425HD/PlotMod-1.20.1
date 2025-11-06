@@ -1,0 +1,62 @@
+# This is the mods.toml file for PlotMod
+# It contains the metadata for your mod that Forge needs to load it
+
+# The modloader version (must be javafml for Forge mods)
+modLoader="javafml"
+
+# The loader version range (Forge 47+ for Minecraft 1.20.1)
+loaderVersion="${loader_version_range}"
+
+# The license for your mod
+license="${mod_license}"
+
+# A URL to refer people to when problems occur with this mod
+#issueTrackerURL="https://github.com/yourname/plotmod/issues"
+
+# A list of mods - how many allowed here is determined by the individual mod loader
+[[mods]]
+    # The modid of the mod (must match the @Mod annotation in PlotMod.java)
+    modId="${mod_id}"
+    
+    # The version number of the mod
+    version="${mod_version}"
+    
+    # A display name for the mod
+    displayName="${mod_name}"
+    
+    # A URL to query for updates for this mod
+    #updateJSONURL="https://example.com/update.json"
+    
+    # A URL for the mod's homepage
+    #displayURL="https://example.com"
+    
+    # A file name (in the root of the mod JAR) containing a logo for display
+    #logoFile="plotmod_logo.png"
+    
+    # A text field displaying credits for this mod
+    credits="Erstellt für Minecraft ${minecraft_version}"
+    
+    # A text field displaying authors for this mod
+    authors="${mod_authors}"
+    
+    # The description text for the mod (multi line!)
+    description='''${mod_description}'''
+
+# Dependency configurations
+# Dependencies can be mandatory or optional
+# If a mandatory dependency is missing, the game will crash
+# If an optional dependency is missing, the mod will still load
+
+[[dependencies.${mod_id}]]
+    modId="forge"
+    mandatory=true
+    versionRange="${forge_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
