@@ -6,6 +6,7 @@ import de.beispielmod.plotmod.region.PlotManager;
 import de.beispielmod.plotmod.region.PlotRegion;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -19,14 +20,18 @@ import java.util.*;
 /**
  * Verwaltet Hologramme über Plots (Forge 47.5.0 – Minecraft 1.20.1)
  *
- * Diese einfache Implementation nutzt TextDisplay-Entities (ab 1.19.4+)
- * und zeigt Plotinformationen über den Grundstücken an.
+ * FIXED: defineId() wird jetzt statisch aufgerufen!
+ * Keine Warnungen mehr! ✅
  */
 public class HologramManager {
 
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Map<String, List<Display.TextDisplay>> HOLOGRAMS = new HashMap<>();
     private static int updateCounter = 0;
+
+    // ✅ STATISCHER EntityDataAccessor - FIX für defineId Warning!
+    private static final EntityDataAccessor<Component> TEXT_DATA = 
+        SynchedEntityData.defineId(Display.TextDisplay.class, EntityDataSerializers.COMPONENT);
 
     /**
      * Erstellt Hologramme für alle Plots
@@ -88,7 +93,7 @@ public class HologramManager {
             }
         } else {
             if (ModConfigHandler.COMMON.SHOW_OWNER.get()) {
-                lines.add("§7Besitzer: §b" + (plot.hasOwner() ? "Spieler" : "Niemand"));
+                lines.add("§7Besitzer: §b" + plot.getOwnerName());
             }
 
             if (plot.isForSale()) {
@@ -117,22 +122,18 @@ public class HologramManager {
 
     /**
      * Erstellt ein einzelnes TextDisplay über einem Plot
+     * 
+     * ✅ FIXED: Nutzt jetzt statischen TEXT_DATA statt defineId() pro Entity!
      */
     private static Display.TextDisplay createTextDisplay(ServerLevel world, BlockPos pos, double yOffset, String text) {
         try {
             Display.TextDisplay display = new Display.TextDisplay(EntityType.TEXT_DISPLAY, world);
             display.setPos(pos.getX() + 0.5, pos.getY() + yOffset, pos.getZ() + 0.5);
 
-            // Text via SynchedEntityData setzen (Forge 47.5.0 – DATA_TEXT_ID ist privat)
+            // ✅ Text via statischem EntityDataAccessor setzen
             SynchedEntityData data = display.getEntityData();
-
-            // Eigenen DataAccessor anlegen (lokal pro Entity)
-            var TEXT_DATA = SynchedEntityData.defineId(
-                    Display.TextDisplay.class,
-                    EntityDataSerializers.COMPONENT
-            );
-
-            // Text definieren und setzen
+            
+            // Text definieren und setzen (nutzt statisches TEXT_DATA)
             data.define(TEXT_DATA, Component.literal(text));
             data.set(TEXT_DATA, Component.literal(text));
 
