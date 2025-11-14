@@ -126,6 +126,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -252,6 +253,12 @@
       <workItem from="1762194147708" duration="14745000" />
       <workItem from="1762245913753" duration="1362000" />
       <workItem from="1762275529893" duration="1974000" />
+      <workItem from="1763040920653" duration="24000" />
+      <workItem from="1763123215751" duration="107000" />
+      <workItem from="1763123329372" duration="239000" />
+      <workItem from="1763126021555" duration="227000" />
+      <workItem from="1763126262124" duration="1000" />
+      <workItem from="1763126474095" duration="458000" />
     </task>
     <servers />
   </component>

@@ -1,18 +1,21 @@
 package de.beispielmod.plotmod.config;
 
+import de.beispielmod.plotmod.tobacco.config.TobaccoConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 /**
- * PlotMod 3.0 - Vollständige Konfiguration
+ * PlotMod 3.0 - Vollständige Konfiguration inkl. Tabak-System
  */
 public class ModConfigHandler {
 
     public static final ForgeConfigSpec SPEC;
     public static final Common COMMON;
+    public static final TobaccoConfig TOBACCO;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         COMMON = new Common(builder);
+        TOBACCO = new TobaccoConfig(builder);
         SPEC = builder.build();
     }
 
@@ -65,21 +68,9 @@ public class ModConfigHandler {
         public final ForgeConfigSpec.BooleanValue ALLOW_MULTIPLE_RATINGS;
         public final ForgeConfigSpec.IntValue MIN_RATING;
         public final ForgeConfigSpec.IntValue MAX_RATING;
-        
-        // ═══════════════════════════════════════════════════════════
-        // HOLOGRAMS
-        // ═══════════════════════════════════════════════════════════
-        public final ForgeConfigSpec.BooleanValue HOLOGRAMS_ENABLED;
-        public final ForgeConfigSpec.BooleanValue SHOW_OWNER;
-        public final ForgeConfigSpec.BooleanValue SHOW_PRICE;
-        public final ForgeConfigSpec.BooleanValue SHOW_RATING;
-        public final ForgeConfigSpec.IntValue HOLOGRAM_UPDATE_INTERVAL;
 
         public Common(ForgeConfigSpec.Builder builder) {
             
-            // ═══════════════════════════════════════════════════════════
-            // ECONOMY
-            // ═══════════════════════════════════════════════════════════
             builder.comment("PlotMod 3.0 - Economy Settings")
                     .push("economy");
 
@@ -93,9 +84,6 @@ public class ModConfigHandler {
 
             builder.pop();
 
-            // ═══════════════════════════════════════════════════════════
-            // PLOTS
-            // ═══════════════════════════════════════════════════════════
             builder.comment("Plot System Settings")
                     .push("plots");
 
@@ -129,9 +117,6 @@ public class ModConfigHandler {
 
             builder.pop();
 
-            // ═══════════════════════════════════════════════════════════
-            // DAILY REWARDS
-            // ═══════════════════════════════════════════════════════════
             builder.comment("Daily Reward Settings")
                     .push("daily");
 
@@ -149,9 +134,6 @@ public class ModConfigHandler {
 
             builder.pop();
 
-            // ═══════════════════════════════════════════════════════════
-            // RENT SYSTEM
-            // ═══════════════════════════════════════════════════════════
             builder.comment("Plot Rental System Settings")
                     .push("rent");
 
@@ -177,9 +159,6 @@ public class ModConfigHandler {
 
             builder.pop();
 
-            // ═══════════════════════════════════════════════════════════
-            // SHOP SYSTEM
-            // ═══════════════════════════════════════════════════════════
             builder.comment("Shop System Settings")
                     .push("shop");
 
@@ -197,9 +176,6 @@ public class ModConfigHandler {
 
             builder.pop();
 
-            // ═══════════════════════════════════════════════════════════
-            // RATINGS
-            // ═══════════════════════════════════════════════════════════
             builder.comment("Plot Rating System Settings")
                     .push("ratings");
 
@@ -218,34 +194,6 @@ public class ModConfigHandler {
             MAX_RATING = builder
                     .comment("Maximales Rating (Sterne)")
                     .defineInRange("max_rating", 5, 1, 5);
-
-            builder.pop();
-
-            // ═══════════════════════════════════════════════════════════
-            // HOLOGRAMS
-            // ═══════════════════════════════════════════════════════════
-            builder.comment("Hologram Display Settings")
-                    .push("holograms");
-
-            HOLOGRAMS_ENABLED = builder
-                    .comment("Hologramme aktiviert")
-                    .define("enabled", true);
-
-            SHOW_OWNER = builder
-                    .comment("Besitzer im Hologramm anzeigen")
-                    .define("show_owner", true);
-
-            SHOW_PRICE = builder
-                    .comment("Preis im Hologramm anzeigen")
-                    .define("show_price", true);
-
-            SHOW_RATING = builder
-                    .comment("Rating im Hologramm anzeigen")
-                    .define("show_rating", true);
-
-            HOLOGRAM_UPDATE_INTERVAL = builder
-                    .comment("Update-Intervall in Ticks (20 = 1 Sekunde)")
-                    .defineInRange("update_interval", 100, 20, 1200);
 
             builder.pop();
         }

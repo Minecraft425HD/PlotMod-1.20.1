@@ -63,14 +63,19 @@ public class PlotRegion {
     private long lastVisited;
     private int visitCount;
 
+    // Öffentlicher Plot?
+    private boolean isPublic;
+
     /**
      * Konstruktor für neue Plots
      */
     public PlotRegion(String ownerUUID, BlockPos min, BlockPos max, double price) {
-        this.ownerUUID = ownerUUID;
+        this.ownerUUID = "";  // LEER statt Parameter!
+        this.ownerName = null;
         this.min = min;
         this.max = max;
         this.price = price;
+        this.isPublic = false;
         
         // ID & Namen
         this.plotId = "plot_" + UUID.randomUUID().toString().substring(0, 8);
@@ -124,7 +129,7 @@ public class PlotRegion {
      * Gibt den Namen des Besitzers zurück
      */
     public String getOwnerName() {
-        return ownerName != null ? ownerName : "Unbekannt";
+        return ownerName != null ? ownerName : "Niemand";
     }
     
     /**
@@ -132,6 +137,20 @@ public class PlotRegion {
      */
     public void setOwnerName(String name) {
         this.ownerName = name;
+    }
+    
+    /**
+     * Ist Plot öffentlich?
+     */
+    public boolean isPublic() {
+        return isPublic;
+    }
+    
+    /**
+     * Setzt Plot öffentlich
+     */
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
     
     public BlockPos getMin() { return min; }

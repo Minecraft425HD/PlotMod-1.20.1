@@ -13,9 +13,7 @@
     </wildcardResourcePatterns>
     <bytecodeTargetLevel target="17" />
   </component>
-  <component name="CopyrightManager" default="">
-    <module2copyright />
-  </component>
+  <component name="CopyrightManager" default="" />
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
@@ -390,22 +388,6 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cpw.mods/securejarhandler/2.1.10/96331802dca7d09fd109500a708200ae758ff412/securejarhandler-2.1.10-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: curse.maven:worldedit-225608:4586218_mapped_official_1.20.1" type="java-imported" external-system-id="GRADLE">
-      <properties groupId="curse.maven" artifactId="worldedit-225608" version="4586218_mapped_official_1.20.1" baseVersion="4586218_mapped_official_1.20.1" />
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/forge_gradle/deobf_dependencies/curse/maven/worldedit-225608/4586218_mapped_official_1.20.1/worldedit-225608-4586218_mapped_official_1.20.1.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: curse.maven:yawp-663276:6117986_mapped_official_1.20.1" type="java-imported" external-system-id="GRADLE">
-      <properties groupId="curse.maven" artifactId="yawp-663276" version="6117986_mapped_official_1.20.1" baseVersion="6117986_mapped_official_1.20.1" />
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/forge_gradle/deobf_dependencies/curse/maven/yawp-663276/6117986_mapped_official_1.20.1/yawp-663276-6117986_mapped_official_1.20.1.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
     <library name="Gradle: io.netty:netty-buffer:4.1.82.Final" type="java-imported" external-system-id="GRADLE">
       <properties groupId="io.netty" artifactId="netty-buffer" version="4.1.82.Final" baseVersion="4.1.82.Final" />
       <ANNOTATIONS>
@@ -642,7 +624,7 @@
         <root url="jar://$APPLICATION_PLUGINS_DIR$/Minecraft Development/lib/resources/externalAnnotations.jar!/" />
       </ANNOTATIONS>
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1-recomp.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>

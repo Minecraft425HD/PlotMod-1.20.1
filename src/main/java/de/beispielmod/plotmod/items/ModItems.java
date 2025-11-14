@@ -7,7 +7,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 /**
- * Registrierung aller PlotMod Items
+ * Registrierung aller PlotMod Items (ERWEITERT)
  */
 public class ModItems {
     
@@ -17,4 +17,11 @@ public class ModItems {
     // Plot-Auswahl-Werkzeug (wie WorldEdit Axe)
     public static final RegistryObject<Item> PLOT_SELECTION_TOOL = 
         ITEMS.register("plot_selection_tool", PlotSelectionTool::new);
+    
+    // ═══════════════════════════════════════════════════════════
+    // NEUE FEATURES: BARGELD-ITEM
+    // ═══════════════════════════════════════════════════════════
+    
+    public static final RegistryObject<Item> CASH = 
+        ITEMS.register("cash", () -> new de.beispielmod.plotmod.economy.items.CashItem());
 }

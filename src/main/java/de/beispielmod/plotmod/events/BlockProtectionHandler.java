@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
@@ -49,7 +50,7 @@ public class BlockProtectionHandler {
     }
 
     /**
-     * Zentrale Berechtigungsprüfung mit Trusted Players Support
+     * Zentrale Berechtigungsprüfung
      * 
      * @param player Der Spieler
      * @param pos Die Position
@@ -59,21 +60,29 @@ public class BlockProtectionHandler {
     private boolean checkPlotPermission(Player player, BlockPos pos, String action) {
         UUID playerUUID = player.getUUID();
 
+        // Admin hat IMMER Zugriff!
+        if (player.hasPermissions(2)) {
+            return true;
+        }
+
         // Prüfe alle Plots
         for (PlotRegion plot : PlotManager.getPlots()) {
             if (plot.contains(pos)) {
                 
-                // Plot hat keinen Besitzer = öffentlich
+                // Öffentlicher Plot: KEIN Bauen/Abbauen erlaubt!
+                if (plot.isPublic()) {
+                    player.displayClientMessage(Component.literal(
+                        "§cÖffentlicher Plot - Bauen/Abbauen verboten!"
+                    ), true);
+                    return false;
+                }
+                
+                // Plot hat keinen Besitzer = frei
                 if (!plot.hasOwner()) {
                     return true;
                 }
 
-                // ═══════════════════════════════════════════════════════════
-                // NEUE LOGIK: hasAccess() prüft:
-                // - Besitzer
-                // - Trusted Players
-                // - Mieter (falls vermietet)
-                // ═══════════════════════════════════════════════════════════
+                // Besitzer oder Trusted?
                 if (plot.hasAccess(playerUUID)) {
                     return true;
                 }
@@ -103,5 +112,43 @@ public class BlockProtectionHandler {
 
         // Nicht in einem Plot = erlaubt
         return true;
+    }
+
+    /**
+     * Erlaubt Interaktion in öffentlichen Plots (Truhen, GUIs, etc.)
+     */
+    @SubscribeEvent
+    public void onBlockInteract(PlayerInteractEvent.RightClickBlock event) {
+        Player player = event.getEntity();
+        BlockPos pos = event.getPos();
+        
+        // Admin darf immer!
+        if (player.hasPermissions(2)) {
+            return;
+        }
+
+        for (PlotRegion plot : PlotManager.getPlots()) {
+            if (plot.contains(pos)) {
+                
+                // Öffentlicher Plot: Interaktion ERLAUBT!
+                if (plot.isPublic()) {
+                    return;  // Erlauben!
+                }
+                
+                // Privater Plot ohne Besitzer: Erlauben
+                if (!plot.hasOwner()) {
+                    return;
+                }
+                
+                // Privater Plot: Nur Besitzer + Trusted
+                if (!plot.hasAccess(player.getUUID())) {
+                    event.setCanceled(true);
+                    player.displayClientMessage(Component.literal(
+                        "§c✗ Du darfst hier nichts benutzen!"
+                    ), true);
+                    return;
+                }
+            }
+        }
     }
 }

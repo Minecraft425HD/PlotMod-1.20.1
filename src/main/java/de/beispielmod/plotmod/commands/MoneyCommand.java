@@ -3,12 +3,14 @@ package de.beispielmod.plotmod.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.logging.LogUtils;
 import de.beispielmod.plotmod.economy.EconomyManager;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import org.slf4j.Logger;
 
 import java.util.UUID;
 
@@ -16,6 +18,8 @@ import java.util.UUID;
  * Money-Befehle für das Economy-System
  */
 public class MoneyCommand {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         // ───────────────────────────────
@@ -99,6 +103,7 @@ public class MoneyCommand {
             ));
             return 1;
         } catch (Exception e) {
+            LOGGER.error("Fehler beim Abrufen des Kontostands", e);
             ctx.getSource().sendFailure(Component.literal("§cFehler beim Abrufen deines Kontostands!"));
             return 0;
         }
@@ -160,8 +165,8 @@ public class MoneyCommand {
 
             return 1;
         } catch (Exception e) {
+            LOGGER.error("Fehler beim Pay-Befehl", e);
             ctx.getSource().sendFailure(Component.literal("§cFehler beim Ausführen des Befehls!"));
-            e.printStackTrace();
             return 0;
         }
     }
@@ -188,6 +193,7 @@ public class MoneyCommand {
 
             return 1;
         } catch (Exception e) {
+            LOGGER.error("Fehler beim Setzen des Guthabens", e);
             ctx.getSource().sendFailure(Component.literal("§cFehler beim Setzen des Guthabens!"));
             return 0;
         }
@@ -216,6 +222,7 @@ public class MoneyCommand {
 
             return 1;
         } catch (Exception e) {
+            LOGGER.error("Fehler beim Hinzufügen von Geld", e);
             ctx.getSource().sendFailure(Component.literal("§cFehler beim Hinzufügen von Geld!"));
             return 0;
         }
@@ -249,6 +256,7 @@ public class MoneyCommand {
                 return 0;
             }
         } catch (Exception e) {
+            LOGGER.error("Fehler beim Abziehen von Geld", e);
             ctx.getSource().sendFailure(Component.literal("§cFehler beim Abziehen von Geld!"));
             return 0;
         }
